@@ -177,7 +177,7 @@ var _ = Describe("CF Go Buildpack", func() {
 		})
 
 		Context("a go app with a custom package spec", func() {
-			FIt("installs the custom package", func() {
+			It("installs the custom package", func() {
 				app = cutlass.New(filepath.Join(bpDir, "fixtures", "install_pkg_spec"))
 				PushAppAndConfirm(app)
 				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie example.com/install_pkg_spec/app"))
@@ -187,7 +187,7 @@ var _ = Describe("CF Go Buildpack", func() {
 			It("installs the custom package using go modules", func() {
 				app = cutlass.New(filepath.Join(bpDir, "fixtures", "install_pkg_spec_go_modules"))
 				PushAppAndConfirm(app)
-				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie example.com/install_pkg_spec/app"))
+				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie github.com/full/path/cmd/app"))
 				Expect(app.GetBody("/")).To(ContainSubstring("go, world"))
 			})
 
@@ -201,7 +201,7 @@ var _ = Describe("CF Go Buildpack", func() {
 			It("installs the custom package using vendored go modules", func() {
 				app = cutlass.New(filepath.Join(bpDir, "fixtures", "install_pkg_spec_vendored_go_modules"))
 				PushAppAndConfirm(app)
-				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie example.com/install_pkg_spec/app/cmd/app"))
+				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie github.com/full/path/cmd/app"))
 				Expect(app.Stdout.String()).NotTo(MatchRegexp("go: downloading github.com/deckarep"))
 				Expect(app.GetBody("/")).To(ContainSubstring("go, world"))
 			})
@@ -307,18 +307,21 @@ var _ = Describe("CF Go Buildpack", func() {
 				PushAppAndConfirm(app)
 				Expect(app.Stdout.String()).To(MatchRegexp("Init: a.A == 1"))
 				Expect(app.GetBody("/")).To(ContainSubstring("Read: a.A == 1"))
-				AssertNoInternetTraffic("vendored_custom_install_spec")
 			})
 
+			AssertNoInternetTraffic("vendored_custom_install_spec")
+		})
 
+		Context("app has vendored dependencies and custom package spec", func() {
 			It("installs the custom package when vendoring with go modules", func() {
 				app = cutlass.New(filepath.Join(bpDir, "fixtures", "install_pkg_spec_vendored_go_modules"))
 				PushAppAndConfirm(app)
-				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie example.com/install_pkg_spec/app/cmd/app"))
+				Expect(app.Stdout.String()).To(ContainSubstring("Running: go install -tags cloudfoundry -buildmode pie github.com/full/path/cmd/app"))
 				Expect(app.Stdout.String()).NotTo(MatchRegexp("go: downloading github.com/deckarep"))
 				Expect(app.GetBody("/")).To(ContainSubstring("go, world"))
-				AssertNoInternetTraffic("install_pkg_spec_vendored_go_modules")
 			})
+
+			AssertNoInternetTraffic("install_pkg_spec_vendored_go_modules")
 		})
 
 		Context("app has vendored dependencies and a vendor.json file", func() {
