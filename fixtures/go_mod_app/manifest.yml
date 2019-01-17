@@ -6,4 +6,4 @@ applications:
     - go_buildpack
   stack: cflinuxfs3
   env:
-    GOVERSION: go1.11.4
+    GOVERSION: go1.11

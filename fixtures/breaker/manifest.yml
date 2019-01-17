@@ -1,0 +1,13 @@
+
+
+
+applications:
+
+- name: breaker
+  path: .
+  buildpacks:
+  - https://github.com/cloudfoundry/go-buildpack/releases/download/v1.8.30/go-buildpack-cflinuxfs2-v1.8.30.zip
+  env:
+    GOPACKAGENAME: github.com/cf-platform-eng/breaker
+    GO_INSTALL_PACKAGE_SPEC: ./cmd/breaker
+    GOVERSION: go1.11
