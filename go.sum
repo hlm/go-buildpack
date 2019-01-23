@@ -3,6 +3,8 @@ github.com/Masterminds/semver v1.4.2 h1:WBLTQ37jOCzSLtXNdoo8bNM8876KhNqOKvrlGITg
 github.com/Masterminds/semver v1.4.2/go.mod h1:MB6lktGJrhw8PrUyiEoblNEGEQ+RzHPF078ddwwvV3Y=
 github.com/ZiCog/shiny-thing v0.0.0-20121130081921-e9e19444ccf5 h1:KNRjGPw67jX2lSlMyICc7E9ACsJDDh1bH9t/6DAMq60=
 github.com/ZiCog/shiny-thing v0.0.0-20121130081921-e9e19444ccf5/go.mod h1:wp/Ywa8aRsTe1arDBj2Q/CaUIzcujyZBYOQtTpvicj0=
+github.com/a8m/tree v0.0.0-20181222104329-6a0b80129de4 h1:mK1/QgFPU4osbhjJ26B1w738kjQHaGJcon8uCLMS8fk=
+github.com/a8m/tree v0.0.0-20181222104329-6a0b80129de4/go.mod h1:FSdwKX97koS5efgm8WevNf7XS3PqtyFkKDDXrz778cg=
 github.com/blang/semver v3.5.1+incompatible h1:cQNTCjp13qL8KC3Nbxr/y2Bqb63oX6wdnnjpJbkM4JQ=
 github.com/blang/semver v3.5.1+incompatible/go.mod h1:kRBLl5iJ+tD4TcOOxsy/0fnwebNt5EWlYSAyrTnjyyk=
 github.com/cloudfoundry/libbuildpack v0.0.0-20181224210246-78d931650f60 h1:h8Y1H0noxhejBS5B1JJvGOdLOB5cXZiQFOnlnB3vKk0=

@@ -3,6 +3,7 @@ module github.com/cloudfoundry/go-buildpack
 require (
 	github.com/Masterminds/semver v1.4.2
 	github.com/ZiCog/shiny-thing v0.0.0-20121130081921-e9e19444ccf5
+	github.com/a8m/tree v0.0.0-20181222104329-6a0b80129de4 // indirect
 	github.com/cloudfoundry/libbuildpack v0.0.0-20190115190946-c10a4cd29881
 	github.com/golang/mock v1.2.0
 	github.com/kr/go-heroku-example v0.0.0-20150601175414-712a6d2f98f1

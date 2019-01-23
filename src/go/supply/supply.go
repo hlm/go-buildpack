@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"github.com/a8m/tree"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -46,7 +47,41 @@ type Supplier struct {
 	Godep      godep.Godep
 }
 
+type fs struct{}
+
+func (f *fs) Stat(path string) (os.FileInfo, error) {
+	return os.Lstat(path)
+}
+func (f *fs) ReadDir(path string) ([]string, error) {
+	dir, err := os.Open(path)
+	if err != nil {
+		return nil, err
+	}
+	names, err := dir.Readdirnames(-1)
+	dir.Close()
+	if err != nil {
+		return nil, err
+	}
+	return names, nil
+}
+
 func Run(gs *Supplier) error {
+
+	fs_inst := fs{}
+
+	// tree the filesystem before supply has run
+	opts := &tree.Options{
+		// Fs, and OutFile are required fields.
+		// fs should implement the tree file-system interface(see: tree.Fs),
+		// and OutFile should be type io.Writer
+		Fs: fs_inst,
+		OutFile: gs.Log.Output(),
+		// ...
+	}
+
+	inf := tree.New("/")
+	inf.Visit(opts)
+
 	if err := gs.SelectVendorTool(); err != nil {
 		gs.Log.Error("Unable to select Go vendor tool: %s", err.Error())
 		return err
@@ -76,6 +111,8 @@ func Run(gs *Supplier) error {
 		gs.Log.Error("Error writing config.yml: %s", err.Error())
 		return err
 	}
+
+	// tree the filesystem after supply has run
 
 	return nil
 }
