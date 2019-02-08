@@ -1,0 +1,13 @@
+---
+applications:
+  - name: activation
+    
+    command: activation
+    env:
+      GOPACKAGENAME: ./activation
+      GOVERSION: go1.11
+  - name: ingest
+    command: ingest
+    env:
+      GOPACKAGENAME: ./ingest/
+      GOVERSION: go1.11
